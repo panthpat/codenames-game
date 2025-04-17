@@ -1,0 +1,59 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+h1 {
+  color: #5e2f18;
+  font-size: 2.5rem;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #5e2f18;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #3c1c0d;
+}
+
+.lobby {
+  margin-top: 20px;
+}
+
+.roles {
+  margin-top: 20px;
+}
+
+.word-card {
+  padding: 20px;
+  margin: 10px;
+  background-color: #e2cfc3;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+.word-card:hover {
+  background-color: #f2e3d5;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+}

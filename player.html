@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Codenames Player&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: url('https://www.transparenttextures.com/patterns/sandpaper.png') repeat;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.board {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(5, 1fr);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 2px solid #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card.revealed.red {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #ff4d4d;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card.revealed.blue {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #4d79ff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card.revealed.bystander {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card.revealed.assassin {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #000;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.turn {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.edit-panel {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background-color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>right: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 2px solid #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 400px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.edit-button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background-color: #007BFF;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Codenames Player View&lt;/h1&gt;</p>
+<p class="p2"><span class="Apple-converted-space">  </span></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Edit Word Bank Panel --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="edit-panel" id="editPanel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3&gt;Edit Word Bank&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;textarea id="wordBankText" rows="8" cols="40"&gt;&lt;/textarea&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="updateWordBank()"&gt;Update Word Bank&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="resetWordBank()"&gt;Reset to Default&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Game Controls --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;label&gt;Game Code (Seed): &lt;input id="seedInput" type="number" /&gt;&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button onclick="startGame()"&gt;Start Game&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="edit-button" onclick="toggleEditPanel()"&gt;🛠 Edit Word Bank&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="turn" id="turn" style="display:none"&gt;Red Team's Turn&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="board" id="board"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Latin-themed word bank</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const DEFAULT_WORD_BANK = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Imperium", "Senatus", "Gladiator", "Augustus", "Fides", "Legio", "Veni, Vidi, Vici", "Roma",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Aeneas", "Caesar", "Romae", "Aquila", "Domus", "Bellum", "Forum", "Pantheon", "Pax", "Virtus",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Triumphus", "Arma", "Pugna", "Dux", "Gladiolus", "Lupa", "Vesta", "Sapiens", "Magister", "Scutum",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>"Triumphalis", "Praetor"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let currentTeam = "red";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let cards = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let wordBank = [...DEFAULT_WORD_BANK];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Function to shuffle array with a seed</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function seededRandom(seed) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let state = seed % 2147483647;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return () =&gt; (state = (state * 16807) % 2147483647) / 2147483647;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function shuffleWithSeed(array, seed) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const rand = seededRandom(seed);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const copy = [...array];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (let i = copy.length - 1; i &gt; 0; i--) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const j = Math.floor(rand() * (i + 1));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>[copy[i], copy[j]] = [copy[j], copy[i]];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return copy;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getBoard(seed) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const ROLES = [</p>
+<p class="p1"><span class="Apple-converted-space">        </span>...Array(9).fill("red"),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>...Array(8).fill("blue"),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>...Array(7).fill("bystander"),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>"assassin"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const words = shuffleWithSeed(wordBank, seed).slice(0, 25);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const roles = shuffleWithSeed(ROLES, seed);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return words.map((word, i) =&gt; ({ word, role: roles[i], revealed: false }));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function startGame() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const seed = parseInt(document.getElementById("seedInput").value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cards = getBoard(seed);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("turn").style.display = "block";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderBoard() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const board = document.getElementById("board");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>board.innerHTML = "";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cards.forEach((card, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const cardEl = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cardEl.className = "card" + (card.revealed ? ` revealed ${card.role}` : "");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cardEl.textContent = card.word;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cardEl.onclick = () =&gt; handleGuess(i);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>board.appendChild(cardEl);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("turn").textContent = `${currentTeam.charAt(0).toUpperCase() + currentTeam.slice(1)} Team's Turn`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function handleGuess(index) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const card = cards[index];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (card.revealed) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.revealed = true;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (card.role === "assassin") {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert(`${currentTeam.toUpperCase()} Team hit the assassin! Game Over.`);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>revealAll();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (card.role !== currentTeam) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>currentTeam = currentTeam === "red" ? "blue" : "red";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>checkWin();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function checkWin() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const redLeft = cards.filter(c =&gt; c.role === "red" &amp;&amp; !c.revealed).length;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const blueLeft = cards.filter(c =&gt; c.role === "blue" &amp;&amp; !c.revealed).length;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (redLeft === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("Red Team Wins!");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>revealAll();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else if (blueLeft === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("Blue Team Wins!");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>revealAll();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function revealAll() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cards.forEach(c =&gt; c.revealed = true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderBoard();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Edit Word Bank</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function toggleEditPanel() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("editPanel").style.display =<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById("editPanel").style.display === 'block' ? 'none' : 'block';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateWordBank() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const newWords = document.getElementById("wordBankText").value.split("\n").map(word =&gt; word.trim()).filter(Boolean);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (newWords.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>wordBank = newWords;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("Word bank updated!");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function resetWordBank() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>wordBank = [...DEFAULT_WORD_BANK];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>alert("Word bank reset to default.");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
